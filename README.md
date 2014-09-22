@@ -18,3 +18,6 @@ Current implementation load the *.csv files on App_Data in memory with the follo
             +---property:value
             |
             +---property:value
+
+
+The document key is the first column in the .csv file.
