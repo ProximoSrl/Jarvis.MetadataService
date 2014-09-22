@@ -1,4 +1,4 @@
-[JOB];[DESCRIPTION];[CUSTOMER_ID];[COMPANY_NAME]
+[JOB];[DESCRIPTION];[CUSTOMER ID];[COMPANY NAME]
 JOB1;First job;PRXM;Proximo s.r.l.
 JOB2;Another job;MSFT;Microsoft corp.
 JOB3;Power Search;GOOG;Google

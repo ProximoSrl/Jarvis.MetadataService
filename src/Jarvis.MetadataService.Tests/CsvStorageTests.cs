@@ -43,5 +43,17 @@ namespace Jarvis.MetadataService.Tests
             Assert.NotNull(jobb);
             Assert.IsTrue(Object.ReferenceEquals(joba,jobb));
         }
+
+        [Test]
+        public void property_names_should_be_normalized()
+        {
+            var job1 = _storage.Get("jobs", "JOB1");
+            
+            Assert.AreEqual(4, job1.Keys.Count);
+            Assert.AreEqual(job1["job"], "JOB1");
+            Assert.AreEqual(job1["description"], "First job");
+            Assert.AreEqual(job1["customer_id"], "PRXM");
+            Assert.AreEqual(job1["company_name"], "Proximo s.r.l.");
+        }
     }
 }

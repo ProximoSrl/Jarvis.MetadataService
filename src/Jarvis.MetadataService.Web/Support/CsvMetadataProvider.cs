@@ -57,7 +57,7 @@ namespace Jarvis.MetadataService.Web.Support
                             var data = new Dictionary<string, string>();
                             for (int i = 0; i < csvReader.Parser.FieldCount; i++)
                             {
-                                string fieldHeader = csvReader.FieldHeaders[i];
+                                string fieldHeader = MakePropertyName(csvReader.FieldHeaders[i]);
                                 data[fieldHeader] = csvReader.GetField(i);
                             }
 
@@ -68,6 +68,15 @@ namespace Jarvis.MetadataService.Web.Support
                     }
                 }
             }
+        }
+
+        private string MakePropertyName(string header)
+        {
+            return header
+                .Replace("[", "")
+                .Replace("]", "")
+                .Replace(" ", "_")
+                .ToLowerInvariant();
         }
     }
 }
