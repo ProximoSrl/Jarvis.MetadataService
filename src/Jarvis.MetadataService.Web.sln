@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30626.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jarvis.MetadataService.Web", "Jarvis.MetadataService.Web\Jarvis.MetadataService.Web.csproj", "{88B9E3AB-35E5-4D17-858B-71058FF6DA57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jarvis.MetadataService.Tests", "Jarvis.MetadataService.Tests\Jarvis.MetadataService.Tests.csproj", "{C3BB6B4F-9AB9-45BA-AEDD-7BFF3DFCB6F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{88B9E3AB-35E5-4D17-858B-71058FF6DA57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88B9E3AB-35E5-4D17-858B-71058FF6DA57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88B9E3AB-35E5-4D17-858B-71058FF6DA57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3BB6B4F-9AB9-45BA-AEDD-7BFF3DFCB6F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3BB6B4F-9AB9-45BA-AEDD-7BFF3DFCB6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3BB6B4F-9AB9-45BA-AEDD-7BFF3DFCB6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3BB6B4F-9AB9-45BA-AEDD-7BFF3DFCB6F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

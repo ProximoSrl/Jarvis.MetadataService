@@ -10,24 +10,42 @@ namespace Jarvis.MetadataService.Web.Support
 {
     public class CsvMetadataProvider
     {
-        private static IDictionary<string, IDictionary<string, IDictionary<string,string>>> _store;
+        private IDictionary<string, IDictionary<string, IDictionary<string,string>>> _parsedFiles;
 
-        public static IDictionary<string, string> Get(string store, string key)
+        public IDictionary<string, string> Get(string storeName, string key)
         {
-            return null;
+            IDictionary<string, IDictionary<string, string>> store;
+            if (!_parsedFiles.TryGetValue(storeName.ToLowerInvariant(), out store))
+            {
+                return null;
+            }
+
+            IDictionary<string, string> value;
+            if (!store.TryGetValue(key.ToLowerInvariant(), out value))
+            {
+                return null;
+            }
+
+            return value;
         }
 
-        public static void Load()
+        public CsvMetadataProvider(string folder)
         {
-            _store = new Dictionary<string, IDictionary<string, IDictionary<string, string>>>();
-            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            LoadFolder(folder);
+        }
+
+        private void LoadFolder(string folder)
+        {
+            _parsedFiles = new Dictionary<string, IDictionary<string, IDictionary<string, string>>>();
+//            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
 
             foreach (var pathToCsv in Directory.GetFiles(folder, "*.csv"))
             {
                 using (var textReader = File.OpenText(pathToCsv))
                 {
                     var fileDictionary = new Dictionary<string, IDictionary<string, string>>();
-                    _store[Path.GetFileNameWithoutExtension(pathToCsv)] = fileDictionary;
+                    string fname = Path.GetFileNameWithoutExtension(pathToCsv).ToLowerInvariant();
+                    _parsedFiles[fname] = fileDictionary;
 
                     using (var csvReader = new CsvReader(textReader,new CsvConfiguration()
                     {
@@ -39,10 +57,11 @@ namespace Jarvis.MetadataService.Web.Support
                             var data = new Dictionary<string, string>();
                             for (int i = 0; i < csvReader.Parser.FieldCount; i++)
                             {
-                                data[csvReader.FieldHeaders[i]] = csvReader.GetField(i);
+                                string fieldHeader = csvReader.FieldHeaders[i];
+                                data[fieldHeader] = csvReader.GetField(i);
                             }
 
-                            string key = csvReader.GetField("[JOB]");
+                            string key = csvReader.GetField("[JOB]").ToLowerInvariant();
 
                             fileDictionary[key] = data;
                         }

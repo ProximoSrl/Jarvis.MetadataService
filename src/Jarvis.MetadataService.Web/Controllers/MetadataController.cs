@@ -13,7 +13,6 @@ namespace Jarvis.MetadataService.Web.Controllers
         // GET: api/Metadata
         public IEnumerable<string> Get()
         {
-            CsvMetadataProvider.Load();
             return new string[] { "value1", "value2" };
         }
 
