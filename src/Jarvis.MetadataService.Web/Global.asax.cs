@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using Jarvis.MetadataService.Web.Support;
 
 namespace Jarvis.MetadataService.Web
 {
@@ -11,6 +12,7 @@ namespace Jarvis.MetadataService.Web
     {
         protected void Application_Start()
         {
+            Metadata.Configure();
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }

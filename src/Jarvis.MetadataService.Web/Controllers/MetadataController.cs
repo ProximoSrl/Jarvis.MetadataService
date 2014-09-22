@@ -4,37 +4,22 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Routing;
 using Jarvis.MetadataService.Web.Support;
 
 namespace Jarvis.MetadataService.Web.Controllers
 {
     public class MetadataController : ApiController
     {
-        // GET: api/Metadata
-        public IEnumerable<string> Get()
+        [Route("metadata/{store}/{id}")]
+        [HttpGet]
+        public HttpResponseMessage  Get(string store, string id)
         {
-            return new string[] { "value1", "value2" };
-        }
+            var data = Metadata.Provider.Get(store, id);
+            if (data != null)
+                return Request.CreateResponse(HttpStatusCode.OK, data);
 
-        // GET: api/Metadata/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Metadata
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Metadata/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Metadata/5
-        public void Delete(int id)
-        {
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "no data available");
         }
     }
 }

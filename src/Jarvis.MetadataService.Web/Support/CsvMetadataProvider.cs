@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -8,9 +7,9 @@ using CsvHelper.Configuration;
 
 namespace Jarvis.MetadataService.Web.Support
 {
-    public class CsvMetadataProvider
+    public class CsvMetadataProvider : IMetadataProvider
     {
-        private IDictionary<string, IDictionary<string, IDictionary<string,string>>> _parsedFiles;
+        private IDictionary<string, IDictionary<string, IDictionary<string, string>>> _parsedFiles;
 
         public IDictionary<string, string> Get(string storeName, string key)
         {
@@ -37,7 +36,6 @@ namespace Jarvis.MetadataService.Web.Support
         private void LoadFolder(string folder)
         {
             _parsedFiles = new Dictionary<string, IDictionary<string, IDictionary<string, string>>>();
-//            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
 
             foreach (var pathToCsv in Directory.GetFiles(folder, "*.csv"))
             {
@@ -47,7 +45,7 @@ namespace Jarvis.MetadataService.Web.Support
                     string fname = Path.GetFileNameWithoutExtension(pathToCsv).ToLowerInvariant();
                     _parsedFiles[fname] = fileDictionary;
 
-                    using (var csvReader = new CsvReader(textReader,new CsvConfiguration()
+                    using (var csvReader = new CsvReader(textReader, new CsvConfiguration()
                     {
                         Delimiter = ";"
                     }))
@@ -61,7 +59,7 @@ namespace Jarvis.MetadataService.Web.Support
                                 data[fieldHeader] = csvReader.GetField(i);
                             }
 
-                            string key = csvReader.GetField("[JOB]").ToLowerInvariant();
+                            string key = csvReader.GetField(csvReader.FieldHeaders[0]).ToLowerInvariant();
 
                             fileDictionary[key] = data;
                         }
@@ -77,6 +75,11 @@ namespace Jarvis.MetadataService.Web.Support
                 .Replace("]", "")
                 .Replace(" ", "_")
                 .ToLowerInvariant();
+        }
+
+        public string[] GetStoreNames()
+        {
+            return _parsedFiles.Keys.ToArray();
         }
     }
 }

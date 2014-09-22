@@ -86,10 +86,15 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\CsvMetadataProvider.cs" />
+    <Compile Include="Support\IMetadataProvider.cs" />
+    <Compile Include="Support\Metadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="App_Data\jobs.csv" />
+    <Content Include="App_Data\customers.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
