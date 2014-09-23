@@ -9,7 +9,7 @@ Current implementation load the *.csv files on App_Data in memory with the follo
 
     +provider
     |
-    +---+file_name
+    +---+file_name (kind)
         |     
         +---+key
             |
@@ -21,3 +21,16 @@ Current implementation load the *.csv files on App_Data in memory with the follo
 
 
 The document key is the first column in the .csv file.
+Field separator is ;
+
+Metadata can be queried with:
+
+    GET http://host:port/metadata/kind/key
+
+or
+
+    POST http://host:port/metadata/query
+    {
+	    kind:'kind',
+	    key:'key'
+    }

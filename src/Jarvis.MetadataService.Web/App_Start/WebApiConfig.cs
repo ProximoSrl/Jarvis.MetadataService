@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Jarvis.MetadataService.Web.Support;
 
 namespace Jarvis.MetadataService.Web
 {
@@ -10,6 +11,7 @@ namespace Jarvis.MetadataService.Web
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.Filters.Add(new ValidateModelAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

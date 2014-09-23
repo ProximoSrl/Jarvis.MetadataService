@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30626.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jarvis.MetadataService.Web", "Jarvis.MetadataService.Web\Jarvis.MetadataService.Web.csproj", "{88B9E3AB-35E5-4D17-858B-71058FF6DA57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jarvis.MetadataService.Tests", "Jarvis.MetadataService.Tests\Jarvis.MetadataService.Tests.csproj", "{C3BB6B4F-9AB9-45BA-AEDD-7BFF3DFCB6F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D11A035-B7FC-41D5-BBD6-12D3AA24127C}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
