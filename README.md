@@ -1,5 +1,6 @@
-Jarvis.MetadataService
+Jarvis.MetadataService <img src="http://demo.prxm.it:8811/app/rest/builds/buildType:JarvisMetadataService/statusIcon" alt="build status">
 ======================
+
 Simple metadata provider from .csv files.
 
 Should be used as a blueprint for system integrators.
