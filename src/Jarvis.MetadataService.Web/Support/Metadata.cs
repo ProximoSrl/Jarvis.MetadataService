@@ -10,9 +10,10 @@ namespace Jarvis.MetadataService.Web.Support
         {
         }
 
-        public static void Configure()
+        public static void Configure(string pathToCsvFolder)
         {
             Provider = new CsvMetadataProvider(
+                pathToCsvFolder ??
                 AppDomain.CurrentDomain.GetData("DataDirectory").ToString()
             );
         }
