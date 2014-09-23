@@ -79,5 +79,17 @@ namespace Jarvis.MetadataService.Tests
             Assert.IsTrue(Object.ReferenceEquals(joba,jobb));
             Assert.IsTrue(Object.ReferenceEquals(jobc,jobb));
         }
+
+        [Test]
+        public void provider_should_provider_object_schema_with_custom_keyword()
+        {
+            var disco = _provider.Get("jobs", "@schema");
+            Assert.NotNull(disco);
+            Assert.AreEqual(4, disco.Keys.Count);
+            Assert.IsTrue(disco.ContainsKey("job"));
+            Assert.IsTrue(disco.ContainsKey("description"));
+            Assert.IsTrue(disco.ContainsKey("customer_id"));
+            Assert.IsTrue(disco.ContainsKey("company_name"));
+        }
     }
 }

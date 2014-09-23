@@ -50,8 +50,22 @@ namespace Jarvis.MetadataService.Web.Support
                         Delimiter = ";"
                     }))
                     {
+                        bool addDiscoInfo = true;
                         while (csvReader.Read())
                         {
+                            if (addDiscoInfo)
+                            {
+                                var schema = new Dictionary<string, string>();
+                                foreach (var fieldHeader in csvReader.FieldHeaders)
+                                {
+                                    schema.Add(MakePropertyName(fieldHeader), "string");
+                                }
+
+                                fileDictionary["@schema"] = schema;
+
+                                addDiscoInfo = false;
+                            }
+
                             var data = new Dictionary<string, string>();
                             for (int i = 0; i < csvReader.Parser.FieldCount; i++)
                             {

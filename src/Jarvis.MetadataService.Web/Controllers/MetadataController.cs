@@ -20,7 +20,6 @@ namespace Jarvis.MetadataService.Web.Controllers
             return Metadata.Provider.GetStoreNames();
         }
 
-
         [Route("metadata/{kind}/{*key}")]
         [HttpGet]
         public HttpResponseMessage  GetByKey(string kind, string key)
