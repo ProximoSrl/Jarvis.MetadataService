@@ -65,5 +65,19 @@ namespace Jarvis.MetadataService.Tests
             Assert.IsTrue(names.Contains("jobs"));
             Assert.IsTrue(names.Contains("customers"));
         }
+
+        [Test]
+        public void keys_should_be_trimmed()
+        {
+            var joba = _provider.Get("jobs", "JOB5");
+            var jobb = _provider.Get("jobs", " JOB5");
+            var jobc = _provider.Get("jobs", "JOB5 ");
+            Assert.NotNull(joba);
+            Assert.NotNull(jobb);
+            Assert.NotNull(jobc);
+
+            Assert.IsTrue(Object.ReferenceEquals(joba,jobb));
+            Assert.IsTrue(Object.ReferenceEquals(jobc,jobb));
+        }
     }
 }

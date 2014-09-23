@@ -13,6 +13,14 @@ namespace Jarvis.MetadataService.Web.Controllers
 {
     public class MetadataController : ApiController
     {
+        [Route("metadata/stores")]
+        [HttpGet]
+        public string[] ListStores()
+        {
+            return Metadata.Provider.GetStoreNames();
+        }
+
+
         [Route("metadata/{kind}/{*key}")]
         [HttpGet]
         public HttpResponseMessage  GetByKey(string kind, string key)

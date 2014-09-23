@@ -14,13 +14,13 @@ namespace Jarvis.MetadataService.Web.Support
         public IDictionary<string, string> Get(string storeName, string key)
         {
             IDictionary<string, IDictionary<string, string>> store;
-            if (!_parsedFiles.TryGetValue(storeName.ToLowerInvariant(), out store))
+            if (!_parsedFiles.TryGetValue(storeName.ToLowerInvariant().Trim(), out store))
             {
                 return null;
             }
 
             IDictionary<string, string> value;
-            if (!store.TryGetValue(key.ToLowerInvariant(), out value))
+            if (!store.TryGetValue(key.ToLowerInvariant().Trim(), out value))
             {
                 return null;
             }
@@ -56,10 +56,10 @@ namespace Jarvis.MetadataService.Web.Support
                             for (int i = 0; i < csvReader.Parser.FieldCount; i++)
                             {
                                 string fieldHeader = MakePropertyName(csvReader.FieldHeaders[i]);
-                                data[fieldHeader] = csvReader.GetField(i);
+                                data[fieldHeader] = csvReader.GetField(i).Trim();
                             }
 
-                            string key = csvReader.GetField(csvReader.FieldHeaders[0]).ToLowerInvariant();
+                            string key = csvReader.GetField(csvReader.FieldHeaders[0]).ToLowerInvariant().Trim();
 
                             fileDictionary[key] = data;
                         }
@@ -73,6 +73,7 @@ namespace Jarvis.MetadataService.Web.Support
             return header
                 .Replace("[", "")
                 .Replace("]", "")
+                .Trim()
                 .Replace(" ", "_")
                 .ToLowerInvariant();
         }
