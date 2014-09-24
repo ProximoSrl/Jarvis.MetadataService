@@ -91,5 +91,12 @@ namespace Jarvis.MetadataService.Tests
             Assert.IsTrue(disco.ContainsKey("customer_id"));
             Assert.IsTrue(disco.ContainsKey("company_name"));
         }
+
+        [Test]
+        public void data_should_be_encoded()
+        {
+            var siem = _provider.Get("customers", "SIEM");
+            Assert.AreEqual("Siemens Hausgerätewerk Nauen GmbH", siem["company_name"]);
+        }
     }
 }

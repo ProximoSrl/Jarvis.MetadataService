@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
 
@@ -38,13 +39,13 @@ namespace Jarvis.MetadataService.Support
 
             foreach (var pathToCsv in Directory.GetFiles(folder, "*.csv"))
             {
-                using (var textReader = File.OpenText(pathToCsv))
+                using (var streamReader = new StreamReader(pathToCsv, Encoding.Default))
                 {
                     var fileDictionary = new Dictionary<string, IDictionary<string, string>>();
                     string fname = Path.GetFileNameWithoutExtension(pathToCsv).ToLowerInvariant();
                     _parsedFiles[fname] = fileDictionary;
 
-                    using (var csvReader = new CsvReader(textReader, new CsvConfiguration()
+                    using (var csvReader = new CsvReader(streamReader, new CsvConfiguration()
                     {
                         Delimiter = ";"
                     }))
