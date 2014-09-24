@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace Jarvis.MetadataService.Web.Support
+namespace Jarvis.MetadataService.Support
 {
     public class CsvMetadataProvider : IMetadataProvider
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Jarvis.MetadataService.Web.Support
+namespace Jarvis.MetadataService.Support
 {
     public static class Metadata
     {

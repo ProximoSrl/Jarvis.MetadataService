@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Web;
 
-namespace Jarvis.MetadataService.Web.Models
+namespace Jarvis.MetadataService.Models
 {
     public class StatusModel
     {

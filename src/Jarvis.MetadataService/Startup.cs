@@ -1,12 +1,9 @@
 ﻿using System.Web.Http;
-using Jarvis.MetadataService.Web;
-using Jarvis.MetadataService.Web.Support;
-using Microsoft.Owin;
+using Jarvis.MetadataService;
+using Jarvis.MetadataService.Support;
 using Owin;
 
-[assembly: OwinStartup(typeof(Startup))]
-
-namespace Jarvis.MetadataService.Web
+namespace Jarvis.MetadataService
 {
     public class Startup
     {

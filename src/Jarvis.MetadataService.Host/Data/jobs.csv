@@ -1,0 +1,7 @@
+[JOB];[DESCRIPTION];[CUSTOMER_ID];[COMPANY_NAME]
+JOB1;First job;PRXM;Proximo s.r.l.
+JOB2;Another job;MSFT;Microsoft corp.
+JOB3;Power Search;GOOG;Google
+00ABC--;Image conversion;YAHOO;Flickr
+00ABC--/V2;Image conversion v2;YAHOO;Flickr
+a&b?c;Encoding;PRXM;Proximo s.r.l.

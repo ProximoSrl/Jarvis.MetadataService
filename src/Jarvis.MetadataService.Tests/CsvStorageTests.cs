@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Jarvis.MetadataService.Web.Support;
+using Jarvis.MetadataService.Support;
 using NUnit.Framework;
 
 namespace Jarvis.MetadataService.Tests

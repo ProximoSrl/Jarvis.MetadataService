@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Jarvis.MetadataService.Web.Support
+namespace Jarvis.MetadataService.Support
 {
     public interface IMetadataProvider
     {

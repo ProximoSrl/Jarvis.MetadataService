@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Routing;
-using Jarvis.MetadataService.Web.Models;
-using Jarvis.MetadataService.Web.Support;
+using Jarvis.MetadataService.Models;
+using Jarvis.MetadataService.Support;
 
-namespace Jarvis.MetadataService.Web.Controllers
+namespace Jarvis.MetadataService.Controllers
 {
     public class MetadataController : ApiController
     {

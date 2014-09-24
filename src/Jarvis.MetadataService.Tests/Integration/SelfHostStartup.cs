@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Jarvis.MetadataService.Web;
-using Jarvis.MetadataService.Web.Support;
+using Jarvis.MetadataService.Support;
 using Owin;
 
 namespace Jarvis.MetadataService.Tests.Integration
