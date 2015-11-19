@@ -24,6 +24,10 @@ Current implementation load the *.csv files on App_Data in memory with the follo
 The document key is the first column in the .csv file.
 Field separator is ;
 
+Schema of the metadata can be queried with:
+
+	GET http://host:port/metadata/kind/@schema
+
 Metadata can be queried with:
 
     GET http://host:port/metadata/kind/key
