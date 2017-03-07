@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Jarvis.MetadataService.Support;
 
-namespace Jarvis.MetadataService.Support
+namespace Jarvis.MetadataService.Providers
 {
     public class CsvMetadataProvider : IMetadataProvider
     {

@@ -91,10 +91,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Jarvis.MetadataService.Web\Jarvis.MetadataService.Web.csproj">
-      <Project>{88B9E3AB-35E5-4D17-858B-71058FF6DA57}</Project>
-      <Name>Jarvis.MetadataService.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Jarvis.MetadataService\Jarvis.MetadataService.csproj">
       <Project>{6DB67142-9D1B-4E60-939D-B7D87DF30CFF}</Project>
       <Name>Jarvis.MetadataService</Name>

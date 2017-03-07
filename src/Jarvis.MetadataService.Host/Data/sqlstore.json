@@ -1,0 +1,8 @@
+﻿[
+  {
+    "name": "orders",
+    "query": "select Number, CustomerId, CompanyName from orders where Number = @id",
+    "connectionString": "Server=(local)\\sqlexpress;Database=md;User Id=md;Password=md;"
+  }
+]
+

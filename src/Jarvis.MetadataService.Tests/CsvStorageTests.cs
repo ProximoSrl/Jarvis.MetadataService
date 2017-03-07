@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Jarvis.MetadataService.Providers;
 using Jarvis.MetadataService.Support;
 using NUnit.Framework;
 
