@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 
 namespace Jarvis.MetadataService.Support
 {
     public interface IMetadataProvider
     {
-        IDictionary<string, string> Get(string storeName, string key);
+        IDictionary<string, Object> Get(string storeName, string key);
+
         string[] GetStoreNames();
     }
 }

@@ -12,7 +12,7 @@ using Topshelf;
 
 namespace Jarvis.MetadataService.Host
 {
-    class Program
+    internal static class Program
     {
         static int Main(string[] args)
         {
@@ -23,7 +23,6 @@ namespace Jarvis.MetadataService.Host
                 host.Service<Bootstrapper>(service =>
                 {
                     var uri = new Uri(ConfigurationManager.AppSettings["uri"]);
-
 
                     service.ConstructUsing(() => new Bootstrapper(uri));
                     service.WhenStarted(s => s.Start());

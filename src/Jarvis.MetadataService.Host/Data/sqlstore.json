@@ -1,8 +1,8 @@
 ﻿[
   {
     "name": "orders",
-    "query": "select Number, CustomerId, CompanyName from orders where Number = @id",
-    "connectionString": "Server=(local)\\sqlexpress;Database=md;User Id=md;Password=md;"
+    "query": "select * from customers where id = @id",
+    "connectionString": "Server=(local)\\sql2014;Database=test;User Id=sa;Password=sql;"
   }
 ]
 

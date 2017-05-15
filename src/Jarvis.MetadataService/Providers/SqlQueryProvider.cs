@@ -8,30 +8,55 @@ using System.Text;
 using System.Threading.Tasks;
 using Jarvis.MetadataService.Support;
 using Newtonsoft.Json;
+using Jarvis.MetadataService.Sql;
+using System.Configuration;
+using System.Diagnostics;
 
 namespace Jarvis.MetadataService.Providers
 {
-    class SqlStore
+    internal class SqlStore
     {
         public string Name { get; set; }
         public string Query { get; set; }
         public string ConnectionString { get; set; }
+        public string ProviderName { get; set; }
+
+        private ConnectionStringSettings _connectionStringSettings;
+
+        public ConnectionStringSettings Connection
+        {
+            get
+            {
+                return _connectionStringSettings ?? (_connectionStringSettings =
+                    new ConnectionStringSettings("connection", ConnectionString, ProviderName ?? "System.Data.SqlClient"));
+            }
+        }
     }
 
-    class SqlQueryProvider : IMetadataProvider
+    internal class SqlQueryProvider : IMetadataProvider
     {
         private readonly IDictionary<string, SqlStore> _stores = new Dictionary<string, SqlStore>();
 
-        public SqlQueryProvider(string sqlStore)
+        public static SqlQueryProvider CreateFromFileDefinition(String fileDefinitionPath)
         {
-            var json = JsonConvert.DeserializeObject<SqlStore[]>(File.ReadAllText(sqlStore));
+            return new SqlQueryProvider(File.ReadAllText(fileDefinitionPath));
+        }
+
+        public static SqlQueryProvider CreateFromJsonDefinition(String serializedJson)
+        {
+            return new SqlQueryProvider(serializedJson);
+        }
+
+        private SqlQueryProvider(string serializedJson)
+        {
+            var json = JsonConvert.DeserializeObject<SqlStore[]>(serializedJson);
             foreach (var store in json)
             {
                 _stores.Add(store.Name.ToLowerInvariant(), store);
             }
         }
 
-        public IDictionary<string, string> Get(string storeName, string key)
+        public IDictionary<string, Object> Get(string storeName, string key)
         {
             SqlStore store;
             if (!_stores.TryGetValue(storeName.ToLowerInvariant(), out store))
@@ -39,39 +64,46 @@ namespace Jarvis.MetadataService.Providers
                 throw new Exception("Invalid store name " + storeName);
             }
 
-            using (var connection = new SqlConnection(store.ConnectionString))
-            using (SqlCommand command = new SqlCommand(store.Query, connection))
+            var result = new Dictionary<string, Object>(StringComparer.OrdinalIgnoreCase);
+
+            if ("@schema".Equals(key, StringComparison.OrdinalIgnoreCase))
             {
-                command.Parameters.Add(new SqlParameter()
-                {
-                    ParameterName = "@id",
-                    Value = key
-                });
-
-                var result = new Dictionary<string, string>();
-
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    if(reader.Read())
+                //We need to retrieve the schema, not the record
+                DataAccess.CreateQueryOn(store.Connection, store.Query)
+                    .SetParam("id", "")
+                    .ExecuteGetSchema(schemaTable =>
                     {
-                        var dataTable = reader.GetSchemaTable();
-
-                        foreach (DataRow row in dataTable.Rows)
+                        foreach (DataRow myField in schemaTable.Rows)
                         {
-                            var cname = row.Field<string>("ColumnName");
-                            var ordinal = row.Field<int>("ColumnOrdinal");
-
-                            result.Add(
-                                cname.ToLowerInvariant(),
-                                reader[ordinal]?.ToString()
-                            );
+                            result[myField["ColumnName"].ToString()] = GetType(myField["DataType"] as Type);
                         }
-                    }
-
-                    return result;
-                }
+                    });
             }
+            else
+            {
+                DataAccess.CreateQueryOn(store.Connection, store.Query)
+                    .SetParam("id", key)
+                    .ExecuteReaderMaxRecord(1, reader =>
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            result[reader.GetName(i)] = reader[i];
+                        }
+                    });
+            }
+
+            return result;
+        }
+
+        private object GetType(Type v)
+        {
+            if (v == typeof(String))
+                return "string";
+            if (v == typeof(Int32) || v == typeof(Int16) || v == typeof(Int64))
+                return "int";
+            if (v == typeof(Double) || v == typeof(Single) || v == typeof(Decimal))
+                return "number";
+            throw new NotSupportedException($"Unsupported type {v.FullName}");
         }
 
         public string[] GetStoreNames()

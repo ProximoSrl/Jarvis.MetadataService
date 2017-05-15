@@ -23,7 +23,7 @@ namespace Jarvis.MetadataService.Support
             if (File.Exists(sqlStore))
             {
                 Logger.Debug("Running on SqlQuery Provider");
-                Provider = new SqlQueryProvider(sqlStore);
+                Provider = SqlQueryProvider.CreateFromFileDefinition(sqlStore);
             }
             else
             {
