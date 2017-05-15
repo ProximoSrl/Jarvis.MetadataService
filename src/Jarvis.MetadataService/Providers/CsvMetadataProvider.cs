@@ -5,22 +5,23 @@ using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Jarvis.MetadataService.Support;
+using System;
 
 namespace Jarvis.MetadataService.Providers
 {
     public class CsvMetadataProvider : IMetadataProvider
     {
-        private IDictionary<string, IDictionary<string, IDictionary<string, string>>> _parsedFiles;
+        private IDictionary<string, IDictionary<string, IDictionary<string, Object>>> _parsedFiles;
 
-        public IDictionary<string, string> Get(string storeName, string key)
+        public IDictionary<string, Object> Get(string storeName, string key)
         {
-            IDictionary<string, IDictionary<string, string>> store;
+            IDictionary<string, IDictionary<string, Object>> store;
             if (!_parsedFiles.TryGetValue(storeName.ToLowerInvariant().Trim(), out store))
             {
                 return null;
             }
 
-            IDictionary<string, string> value;
+            IDictionary<string, Object> value;
             if (!store.TryGetValue(key.ToLowerInvariant().Trim(), out value))
             {
                 return null;
@@ -36,13 +37,13 @@ namespace Jarvis.MetadataService.Providers
 
         private void LoadFolder(string folder)
         {
-            _parsedFiles = new Dictionary<string, IDictionary<string, IDictionary<string, string>>>();
+            _parsedFiles = new Dictionary<string, IDictionary<string, IDictionary<string, Object>>>();
 
             foreach (var pathToCsv in Directory.GetFiles(folder, "*.csv"))
             {
                 using (var streamReader = new StreamReader(pathToCsv, Encoding.Default))
                 {
-                    var fileDictionary = new Dictionary<string, IDictionary<string, string>>();
+                    var fileDictionary = new Dictionary<string, IDictionary<string, Object>>();
                     string fname = Path.GetFileNameWithoutExtension(pathToCsv).ToLowerInvariant();
                     _parsedFiles[fname] = fileDictionary;
 
@@ -56,7 +57,7 @@ namespace Jarvis.MetadataService.Providers
                         {
                             if (addDiscoInfo)
                             {
-                                var schema = new Dictionary<string, string>();
+                                var schema = new Dictionary<string, Object>();
                                 foreach (var fieldHeader in csvReader.FieldHeaders)
                                 {
                                     schema.Add(MakePropertyName(fieldHeader), "string");
@@ -67,7 +68,7 @@ namespace Jarvis.MetadataService.Providers
                                 addDiscoInfo = false;
                             }
 
-                            var data = new Dictionary<string, string>();
+                            var data = new Dictionary<string, Object>();
                             for (int i = 0; i < csvReader.Parser.FieldCount; i++)
                             {
                                 string fieldHeader = MakePropertyName(csvReader.FieldHeaders[i]);
